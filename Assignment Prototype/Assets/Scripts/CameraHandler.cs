@@ -24,7 +24,7 @@ public class CameraHandler : MonoBehaviour
         {
             float xOffset = Random.Range(-1f, 1f) * magnitude;
             float yOffset = Random.Range(-1f, 1f) * magnitude;
-            mainCam.transform.localPosition = new Vector3(xOffset, yOffset, originalPos.z);
+            mainCam.transform.localPosition = Vector3.Lerp(mainCam.transform.localPosition, new Vector3(xOffset, yOffset, originalPos.z), 0.1f);
             timeElapsed += Time.deltaTime;
             yield return null;
         }
