@@ -60,6 +60,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1560472006}
+  - {fileID: 2863298509164834892}
   m_Father: {fileID: 2589681374361444006}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -76,6 +77,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerHead: {fileID: 2589681374232084101}
+  mainCam: {fileID: 1560472006}
+  weaponHolder: {fileID: 1396386066295582715}
 --- !u!1 &1560472005
 GameObject:
   m_ObjectHideFlags: 0
@@ -106,8 +109,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 3438157400659882166}
+  m_Children: []
   m_Father: {fileID: 958115186}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -208,6 +210,37 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sensitivity: 400
   orientation: {fileID: 2589681375406361056}
+--- !u!1 &1396386066295582715
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2863298509164834892}
+  m_Layer: 0
+  m_Name: WeaponHolder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2863298509164834892
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1396386066295582715}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 3345919854392884131}
+  m_Father: {fileID: 958115186}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2589681373290882283
 GameObject:
   m_ObjectHideFlags: 0
@@ -581,48 +614,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackCD: 0.5
   swordDamage: 10
+  hitVfxLocation: {fileID: 0}
+  cam: {fileID: 0}
   swordCollider: {fileID: 0}
   anim: {fileID: 0}
   canAttack: 1
   swordTrail: {fileID: 1193632106}
   hitVFX: {fileID: 0}
---- !u!1 &5498291585699752839
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 3438157400659882166}
-  m_Layer: 0
-  m_Name: WeaponHolder
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &3438157400659882166
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5498291585699752839}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 3345919854392884131}
-  m_Father: {fileID: 1560472006}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &3539039014813316386
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 3438157400659882166}
+    m_TransformParent: {fileID: 2863298509164834892}
     m_Modifications:
     - target: {fileID: 1457470791376557115, guid: b4b25780a098f3c42835d5681b2e4f88, type: 3}
       propertyPath: m_Name

@@ -12,6 +12,7 @@ public class SwordBehavior : MonoBehaviour
     [HideInInspector] public bool canAttack = true;
     public ParticleSystem swordTrail;
     public GameObject hitVFX;
+    public CameraHandler camHandler;
 
     private void Start()
     {
@@ -64,6 +65,8 @@ public class SwordBehavior : MonoBehaviour
         yield return new WaitForSeconds(attackCD);
     }
 
+    
+
     void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Enemy")
@@ -71,6 +74,7 @@ public class SwordBehavior : MonoBehaviour
             Vector3 vfxPos = hitVfxLocation.position;
             other.GetComponent<EnemyBehavior>().TakeDamage(swordDamage);
             Instantiate(hitVFX, vfxPos, Quaternion.identity);
+            StartCoroutine(camHandler.CameraShake(0.15f, 0.3f));
         }
     }
 }
