@@ -313,17 +313,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &773813204 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 958115185, guid: 469f93e5545b62244a699b02bc157395, type: 3}
-  m_PrefabInstance: {fileID: 2589681373733489078}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59019d07e37fd7a458356e09de580cbc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1211490427
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -629,11 +618,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 17ee05d57b0f284478a0cedf0deff434, type: 3}
---- !u!4 &1605385553 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 605363881, guid: 469f93e5545b62244a699b02bc157395, type: 3}
-  m_PrefabInstance: {fileID: 2589681373733489078}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1676578974
 GameObject:
   m_ObjectHideFlags: 0
@@ -729,11 +713,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1713893041 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1560472005, guid: 469f93e5545b62244a699b02bc157395, type: 3}
-  m_PrefabInstance: {fileID: 2589681373733489078}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1889234481
 GameObject:
   m_ObjectHideFlags: 0
@@ -930,42 +909,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 605363880, guid: 469f93e5545b62244a699b02bc157395, type: 3}
-      propertyPath: m_Name
-      value: SwordEffectHolder
-      objectReference: {fileID: 0}
-    - target: {fileID: 1193632106, guid: 469f93e5545b62244a699b02bc157395, type: 3}
-      propertyPath: TrailModule.worldSpace
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1193632106, guid: 469f93e5545b62244a699b02bc157395, type: 3}
-      propertyPath: TrailModule.minVertexDistance
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1193632106, guid: 469f93e5545b62244a699b02bc157395, type: 3}
-      propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.scalar
-      value: 300
-      objectReference: {fileID: 0}
-    - target: {fileID: 1681747058, guid: 469f93e5545b62244a699b02bc157395, type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1681747059, guid: 469f93e5545b62244a699b02bc157395, type: 3}
-      propertyPath: cam
-      value: 
-      objectReference: {fileID: 1713893041}
-    - target: {fileID: 1681747059, guid: 469f93e5545b62244a699b02bc157395, type: 3}
-      propertyPath: hitVFX
-      value: 
-      objectReference: {fileID: 4084903321678796394, guid: d7b3cc7d5b8a40e438fc4efeafd0f56c, type: 3}
-    - target: {fileID: 1681747059, guid: 469f93e5545b62244a699b02bc157395, type: 3}
-      propertyPath: camHandler
-      value: 
-      objectReference: {fileID: 773813204}
-    - target: {fileID: 1681747059, guid: 469f93e5545b62244a699b02bc157395, type: 3}
-      propertyPath: hitVfxLocation
-      value: 
-      objectReference: {fileID: 1605385553}
     - target: {fileID: 2589681374361444006, guid: 469f93e5545b62244a699b02bc157395, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -1011,12 +954,24 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2589681374361444007, guid: 469f93e5545b62244a699b02bc157395, type: 3}
-      propertyPath: groundCheckDistance
-      value: 0.2
+      propertyPath: groundDrag
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2589681374361444024, guid: 469f93e5545b62244a699b02bc157395, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 2589681374361444025, guid: 469f93e5545b62244a699b02bc157395, type: 3}
+      propertyPath: m_AngularDrag
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 2589681374361444025, guid: 469f93e5545b62244a699b02bc157395, type: 3}
+      propertyPath: m_IsKinematic
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2589681374361444025, guid: 469f93e5545b62244a699b02bc157395, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 469f93e5545b62244a699b02bc157395, type: 3}

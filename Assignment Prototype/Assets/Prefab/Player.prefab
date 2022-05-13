@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 605363881}
   m_Layer: 0
-  m_Name: SwordTrail
+  m_Name: SwordEffectHolder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -252,7 +252,6 @@ GameObject:
   - component: {fileID: 2589681373290882280}
   - component: {fileID: 2589681373290882263}
   - component: {fileID: 2589681373290882262}
-  - component: {fileID: 2589681373290882281}
   m_Layer: 7
   m_Name: Eyes
   m_TagString: Untagged
@@ -323,19 +322,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &2589681373290882281
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2589681373290882283}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2589681374232084100
 GameObject:
   m_ObjectHideFlags: 0
@@ -576,7 +562,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2676484864759554329}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.79900694, y: 0.06191803, z: 0.074554056}
@@ -614,13 +600,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackCD: 0.5
   swordDamage: 10
-  hitVfxLocation: {fileID: 0}
-  cam: {fileID: 0}
+  hitVfxLocation: {fileID: 605363881}
   swordCollider: {fileID: 0}
   anim: {fileID: 0}
   canAttack: 1
   swordTrail: {fileID: 1193632106}
-  hitVFX: {fileID: 0}
+  hitVFX: {fileID: 4084903321678796394, guid: d7b3cc7d5b8a40e438fc4efeafd0f56c, type: 3}
+  camHandler: {fileID: 958115185}
 --- !u!1001 &3539039014813316386
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -738,6 +724,14 @@ PrefabInstance:
     - target: {fileID: 4727230714993963476, guid: 547a11cb617f82e449aa1678674077d3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4727230714993963478, guid: 547a11cb617f82e449aa1678674077d3, type: 3}
+      propertyPath: TrailModule.minVertexDistance
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4727230714993963478, guid: 547a11cb617f82e449aa1678674077d3, type: 3}
+      propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.scalar
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 4727230714993963483, guid: 547a11cb617f82e449aa1678674077d3, type: 3}
       propertyPath: m_Name
