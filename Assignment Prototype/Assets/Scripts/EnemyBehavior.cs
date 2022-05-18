@@ -23,16 +23,16 @@ public class EnemyBehavior : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
-        if (!dead)
+        if (dead)
+            return;
+
+        health -= damage;
+        if (health <= 0)
+            EnemyDeath();
+        else
         {
-            health -= damage;
-            if (health <= 0)
-                EnemyDeath();
-            else
-            {
-                anim.SetTrigger("Hit");
-            }
-        }  
+            anim.SetTrigger("Hit");
+        }
     }
 
     public void EnemyDeath()
