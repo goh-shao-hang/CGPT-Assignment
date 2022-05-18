@@ -73,7 +73,8 @@ public class SwordBehavior : MonoBehaviour
         {
             Vector3 vfxPos = hitVfxLocation.position;
             other.GetComponent<EnemyBehavior>().TakeDamage(swordDamage);
-            Instantiate(hitVFX, vfxPos, Quaternion.identity);
+            GameObject hitEffect = Instantiate(hitVFX, vfxPos, Quaternion.identity);
+            Destroy(hitEffect, 2);
             StartCoroutine(camHandler.CameraShake(0.15f, 1f));
         }
     }
