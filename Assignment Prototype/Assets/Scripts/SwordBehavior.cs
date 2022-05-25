@@ -6,13 +6,24 @@ public class SwordBehavior : MonoBehaviour
 {
     public float attackCD = 0.5f;
     public float swordDamage = 10f;
+    public float chargeDamage = 20f;
+    public float minChargeTime;
+    public float maxChargeTime;
+    public float chargeSpeed;
+    public float chargeDuration;
     public Transform hitVfxLocation;
     [HideInInspector] public BoxCollider swordCollider;
     [HideInInspector] public Animator anim;
     [HideInInspector] public bool canAttack = true;
+    public PlayerMovement playerMovement;
     public ParticleSystem swordTrail;
     public GameObject hitVFX;
     public CameraHandler camHandler;
+
+    [SerializeField] private bool isAttacking = false;
+    [SerializeField] private bool nextAttackReady = false;
+    [SerializeField] private bool charging = false;
+    [SerializeField] private float currentChargeTime = 0f;
 
     private void Start()
     {
@@ -25,27 +36,87 @@ public class SwordBehavior : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            if (canAttack)
-            {
-                StartAttack();
-            }
+            StartAttack();
         }
-        else if (Input.GetMouseButtonUp(0))
+        if (Input.GetMouseButton(0))
         {
-            StopAttack();
+            ChargingAttack();
+        }
+        if (Input.GetMouseButtonUp(0))
+        {
+            if (currentChargeTime >= minChargeTime)
+                ChargeAttack(currentChargeTime);
+            currentChargeTime = 0;
+            anim.SetBool("Charging", false);
         }
     }
 
     public void StartAttack()
     {
-        anim.SetBool("Attacking", true);
-        canAttack = false;
+        if (!isAttacking)
+        {
+            anim.SetTrigger("Attack");
+            canAttack = false;
+            isAttacking = true;
+        }
+        else if (canAttack)
+            nextAttackReady = true;
     }
 
-    public void StopAttack()
+    public void AllowNextAttackInput()
     {
-        anim.SetBool("Attacking", false);
         canAttack = true;
+    }
+
+    public void CheckForContinueAttack()
+    {
+        if (nextAttackReady)
+        {
+            anim.SetTrigger("Attack");
+            canAttack = false;
+            nextAttackReady = false;
+        }
+        else
+            isAttacking = false;
+    }
+
+    public void ChargingAttack()
+    {
+        //charging = true;
+        if (currentChargeTime >= 0.3f)
+        {
+            Debug.Log("charging");
+            anim.SetBool("Charging", true);
+        }
+        if (currentChargeTime <= maxChargeTime)
+        {
+            currentChargeTime += Time.deltaTime;
+        }
+            
+    }
+
+    public void ChargeAttack(float chargedTime)
+    {
+        swordTrail.Play();
+        anim.SetBool("ChargeAttacking", true);
+        StartCoroutine(playerMovement.ChargeAttackMovement(chargeSpeed, chargeDuration));
+        Debug.Log("Charge Attacked!");
+        Invoke(nameof(EndChargeAttack), chargeDuration);
+        //charging = false;
+    }
+
+    public void EndChargeAttack()
+    {
+        anim.SetBool("ChargeAttacking", false);
+    }
+
+    public void ChargeAttackHit(Collider hitTarget)
+    {
+        Vector3 vfxPos = hitVfxLocation.position;
+        hitTarget.GetComponent<EnemyBehavior>().TakeDamage(chargeDamage);
+        GameObject hitEffect = Instantiate(hitVFX, vfxPos, Quaternion.identity);
+        Destroy(hitEffect, 2);
+        StartCoroutine(camHandler.CameraShake(0.15f, 1f));
     }
 
     public void ActivateCollider()

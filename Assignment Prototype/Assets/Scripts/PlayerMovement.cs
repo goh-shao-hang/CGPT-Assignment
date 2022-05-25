@@ -9,15 +9,18 @@ public class PlayerMovement : MonoBehaviour
     public float jumpCD;
     public float airMultiplier;
     bool readyToJump = true;
-    public float playerHeight;
     public float groundDrag;
     public float airDrag;
-    public float groundCheckDistance;
+    public float groundCheckRadius;
+    public bool chargeAttacking;
     private bool grounded;
     
     public LayerMask whatIsGround;
+    public Transform groundCheck;
     public Transform orientation;
+    public SwordBehavior sword;
     private Rigidbody rb;
+    private Collider dashTrigger;
 
     float xInput, yInput;
 
@@ -28,10 +31,14 @@ public class PlayerMovement : MonoBehaviour
         ResetJump();
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
+        dashTrigger = GetComponent<BoxCollider>();
     }
 
     private void Update()
     {
+        if (chargeAttacking)
+            return;
+
         GroundCheck();
         MyInput();
         SpeedControl();
@@ -39,6 +46,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (chargeAttacking)
+            return;
         Move();
     }
 
@@ -68,7 +77,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void GroundCheck()
     {
-        grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + groundCheckDistance, whatIsGround);
+        grounded = Physics.CheckSphere(groundCheck.position, groundCheckRadius, whatIsGround);
         if (grounded)
             rb.drag = groundDrag;
         else
@@ -95,5 +104,24 @@ public class PlayerMovement : MonoBehaviour
     private void ResetJump()
     {
         readyToJump = true;
+    }
+
+    public IEnumerator ChargeAttackMovement(float chargeSpeed, float chargeDuration)
+    {
+        chargeAttacking = true;
+        Physics.IgnoreLayerCollision(8, 10, true);
+        rb.drag = 0;
+        rb.velocity = Camera.main.transform.forward * chargeSpeed;
+        yield return new WaitForSeconds(chargeDuration);
+        chargeAttacking = false;
+        rb.velocity = Vector3.zero;
+        Physics.IgnoreLayerCollision(8, 10, false);
+    }
+
+    private void OnTriggerEnter(Collider hitTarget)
+    {
+        if (chargeAttacking)
+            if (hitTarget.gameObject.tag == "Enemy")
+                sword.ChargeAttackHit(hitTarget);
     }
 }

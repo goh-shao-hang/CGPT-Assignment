@@ -14,8 +14,6 @@ public class CameraHandler : MonoBehaviour
         //Put camera at player's eye position
         transform.position = playerHead.transform.position;
         weaponHolder.transform.rotation = mainCam.rotation;
-
-        
     }
 
     public IEnumerator CameraShake(float duration, float magnitude)

@@ -64,7 +64,7 @@ Transform:
   - {fileID: 1560472006}
   - {fileID: 2863298509164834892}
   m_Father: {fileID: 2589681374361444006}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &958115185
 MonoBehaviour:
@@ -190,7 +190,7 @@ MonoBehaviour:
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 0
+  m_RenderPostProcessing: 1
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
   m_StopNaN: 0
@@ -393,6 +393,7 @@ Transform:
   - {fileID: 2589681375297480204}
   - {fileID: 2589681375406361056}
   - {fileID: 2589681374232084101}
+  - {fileID: 1642966615677299453}
   - {fileID: 958115186}
   - {fileID: 3889608823345425471}
   m_Father: {fileID: 0}
@@ -430,13 +431,13 @@ MonoBehaviour:
   jumpForce: 9
   jumpCD: 0.25
   airMultiplier: 0.4
-  playerHeight: 2
   groundDrag: 3
   airDrag: 0.1
-  groundCheckDistance: 0.2
+  groundCheckRadius: 0.2
   whatIsGround:
     serializedVersion: 2
     m_Bits: 64
+  groundCheck: {fileID: 0}
   orientation: {fileID: 2589681375406361056}
 --- !u!1 &2589681375297480207
 GameObject:
@@ -612,7 +613,38 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2589681374361444006}
-  m_RootOrder: 4
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6459547873800376248
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1642966615677299453}
+  m_Layer: 0
+  m_Name: GroundCheck
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1642966615677299453
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6459547873800376248}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2589681374361444006}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &3539039014813316386
 PrefabInstance:
@@ -687,8 +719,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.79900694, y: 0.06191803, z: 0.074554056}
-  m_Center: {x: -0.41971415, y: -0.0000011797894, z: 0.00000025138803}
+  m_Size: {x: 0.79900694, y: 0.06191803, z: 0.058653593}
+  m_Center: {x: -0.41971415, y: -0.0000011794624, z: 0.0000002435673}
 --- !u!95 &1681747060
 Animator:
   serializedVersion: 4
@@ -723,6 +755,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackCD: 0.5
   swordDamage: 10
+  minChargeTime: 1
+  maxChargeTime: 2
   hitVfxLocation: {fileID: 605363881}
   swordCollider: {fileID: 0}
   anim: {fileID: 0}
@@ -730,6 +764,10 @@ MonoBehaviour:
   swordTrail: {fileID: 1193632106}
   hitVFX: {fileID: 4084903321678796394, guid: d7b3cc7d5b8a40e438fc4efeafd0f56c, type: 3}
   camHandler: {fileID: 958115185}
+  isAttacking: 0
+  nextAttackReady: 0
+  charging: 0
+  currentChargeTime: 0
 --- !u!4 &3345919854392884131 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2265919033007246977, guid: b4b25780a098f3c42835d5681b2e4f88, type: 3}
@@ -788,7 +826,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4727230714993963478, guid: 547a11cb617f82e449aa1678674077d3, type: 3}
       propertyPath: TrailModule.minVertexDistance
-      value: 0.2
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4727230714993963478, guid: 547a11cb617f82e449aa1678674077d3, type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 4727230714993963478, guid: 547a11cb617f82e449aa1678674077d3, type: 3}
       propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.scalar
