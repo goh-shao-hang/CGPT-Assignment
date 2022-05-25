@@ -11,6 +11,7 @@ public class PlayerMovement : MonoBehaviour
     bool readyToJump = true;
     public float playerHeight;
     public float groundDrag;
+    public float airDrag;
     public float groundCheckDistance;
     private bool grounded;
     
@@ -71,7 +72,7 @@ public class PlayerMovement : MonoBehaviour
         if (grounded)
             rb.drag = groundDrag;
         else
-            rb.drag = 0;
+            rb.drag = airDrag;
     }
 
     private void SpeedControl()

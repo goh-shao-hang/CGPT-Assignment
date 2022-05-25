@@ -6,6 +6,11 @@ public class EnemyBehavior : MonoBehaviour
 {
     [SerializeField] private float health = 50;
     [SerializeField] private bool dead = false;
+    public int minCoin;
+    public int maxCoin;
+    public GameObject coin;
+    public Transform coinSpawner;
+    public float coinLaunchForce;
     [HideInInspector] public Animator anim;
     [HideInInspector] public CapsuleCollider parentCollider;
     [HideInInspector] public Collider[] colliders;
@@ -41,7 +46,23 @@ public class EnemyBehavior : MonoBehaviour
         anim.enabled = false;
         SetCollidersState(true);
         SetRigidbodiesState(false);
+        DropCoins();
     }
+
+    public void DropCoins()
+    {
+        int coinAmount = Random.Range(minCoin, maxCoin);
+        for (int count = 1; count <= coinAmount; count++)
+        {
+            Vector3 coinLaunch = new Vector3(Random.Range(-coinLaunchForce, coinLaunchForce), Random.Range(-coinLaunchForce, coinLaunchForce), Random.Range(-coinLaunchForce, coinLaunchForce));
+
+            GameObject newCoin = Instantiate(coin, coinSpawner.position, Quaternion.identity);
+            Rigidbody coinRB = newCoin.GetComponent<Rigidbody>();
+            coinRB.AddForceAtPosition(coinLaunch, coinSpawner.position, ForceMode.Impulse);
+            StartCoroutine(newCoin.GetComponent<CoinBehavior>().FollowDelay());
+        }
+    }
+
 
     public void SetRigidbodiesState(bool state)
     {
