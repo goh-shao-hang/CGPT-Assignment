@@ -106,7 +106,7 @@ public class PlayerMovement : MonoBehaviour
         readyToJump = true;
     }
 
-    public IEnumerator ChargeAttackMovement(float chargeSpeed, float chargeDuration)
+    public IEnumerator ChargeAttackMovement(float chargeSpeed, float chargedTime, float chargeDuration)
     {
         chargeAttacking = true;
         Physics.IgnoreLayerCollision(8, 10, true);

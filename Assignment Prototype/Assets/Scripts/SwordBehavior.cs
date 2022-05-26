@@ -6,10 +6,12 @@ public class SwordBehavior : MonoBehaviour
 {
     public float attackCD = 0.5f;
     public float swordDamage = 10f;
-    public float chargeDamage = 20f;
     public float minChargeTime;
     public float maxChargeTime;
-    public float chargeSpeed;
+    public float baseChargeDamage;
+    public float extraChargeDamage = 25f;
+    public float baseChargeSpeed;
+    public float extraChargeSpeed;
     public float chargeDuration;
     public Transform hitVfxLocation;
     [HideInInspector] public BoxCollider swordCollider;
@@ -24,6 +26,7 @@ public class SwordBehavior : MonoBehaviour
     [SerializeField] private bool nextAttackReady = false;
     [SerializeField] private bool charging = false;
     [SerializeField] private float currentChargeTime = 0f;
+    private float storedChargeTime = 0f;
 
     private void Start()
     {
@@ -99,19 +102,24 @@ public class SwordBehavior : MonoBehaviour
     {
         swordTrail.Play();
         anim.SetBool("ChargeAttacking", true);
-        StartCoroutine(playerMovement.ChargeAttackMovement(chargeSpeed, chargeDuration));
-        Debug.Log("Charge Attacked!");
+
+        storedChargeTime = chargedTime;
+        float chargeSpeed = baseChargeSpeed + extraChargeSpeed * ((storedChargeTime - minChargeTime) / (maxChargeTime - minChargeTime));
+        Mathf.Clamp(chargeSpeed, baseChargeSpeed, baseChargeSpeed + extraChargeSpeed);
+        StartCoroutine(playerMovement.ChargeAttackMovement(chargeSpeed, chargedTime, chargeDuration));
         Invoke(nameof(EndChargeAttack), chargeDuration);
-        //charging = false;
     }
 
     public void EndChargeAttack()
     {
         anim.SetBool("ChargeAttacking", false);
+        storedChargeTime = 0f;
     }
 
     public void ChargeAttackHit(Collider hitTarget)
     {
+        float chargeDamage = baseChargeDamage + extraChargeDamage * ((storedChargeTime - minChargeTime) / (maxChargeTime - minChargeTime));
+        Debug.Log(chargeDamage);
         Vector3 vfxPos = hitVfxLocation.position;
         hitTarget.GetComponent<EnemyBehavior>().TakeDamage(chargeDamage);
         GameObject hitEffect = Instantiate(hitVFX, vfxPos, Quaternion.identity);

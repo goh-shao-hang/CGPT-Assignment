@@ -5201,7 +5201,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1681747059, guid: 469f93e5545b62244a699b02bc157395, type: 3}
       propertyPath: minChargeTime
-      value: 0.6
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 1681747059, guid: 469f93e5545b62244a699b02bc157395, type: 3}
       propertyPath: chargeDuration
@@ -5211,6 +5211,22 @@ PrefabInstance:
       propertyPath: playerMovement
       value: 
       objectReference: {fileID: 663183157}
+    - target: {fileID: 1681747059, guid: 469f93e5545b62244a699b02bc157395, type: 3}
+      propertyPath: baseChargeSpeed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1681747059, guid: 469f93e5545b62244a699b02bc157395, type: 3}
+      propertyPath: ExtraChargeSpeed
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 1681747059, guid: 469f93e5545b62244a699b02bc157395, type: 3}
+      propertyPath: baseChargeDamage
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 1681747059, guid: 469f93e5545b62244a699b02bc157395, type: 3}
+      propertyPath: extraChargeSpeed
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 2589681374361444006, guid: 469f93e5545b62244a699b02bc157395, type: 3}
       propertyPath: m_RootOrder
       value: 5
