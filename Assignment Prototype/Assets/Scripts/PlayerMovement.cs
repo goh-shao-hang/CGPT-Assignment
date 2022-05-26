@@ -18,6 +18,7 @@ public class PlayerMovement : MonoBehaviour
     public LayerMask whatIsGround;
     public Transform groundCheck;
     public Transform orientation;
+    public Camera mainCam;
     public SwordBehavior sword;
     private Rigidbody rb;
     private Collider dashTrigger;
@@ -32,6 +33,7 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
         dashTrigger = GetComponent<BoxCollider>();
+        mainCam = Camera.main;
     }
 
     private void Update()
@@ -109,13 +111,15 @@ public class PlayerMovement : MonoBehaviour
     public IEnumerator ChargeAttackMovement(float chargeSpeed, float chargedTime, float chargeDuration)
     {
         chargeAttacking = true;
-        Physics.IgnoreLayerCollision(8, 10, true);
+        Physics.IgnoreLayerCollision(8, 10, true); //Ignore enemy collision
+        Physics.IgnoreLayerCollision(8, 9, true); //Ignore coin collision
         rb.drag = 0;
-        rb.velocity = Camera.main.transform.forward * chargeSpeed;
+        rb.velocity = mainCam.transform.forward * chargeSpeed;
         yield return new WaitForSeconds(chargeDuration);
         chargeAttacking = false;
         rb.velocity = Vector3.zero;
         Physics.IgnoreLayerCollision(8, 10, false);
+        Physics.IgnoreLayerCollision(8, 9, false);
     }
 
     private void OnTriggerEnter(Collider hitTarget)
