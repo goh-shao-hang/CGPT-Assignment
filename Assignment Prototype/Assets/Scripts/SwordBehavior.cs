@@ -52,7 +52,10 @@ public class SwordBehavior : MonoBehaviour
             if (currentChargeTime >= minChargeTime)
                 ChargeAttack(currentChargeTime);
             else
+            {
                 anim.SetBool("Charging", false);
+                anim.ResetTrigger("StopAttack");
+            }     
             currentChargeTime = 0;
         }
     }
@@ -64,7 +67,6 @@ public class SwordBehavior : MonoBehaviour
             anim.SetTrigger("Attack");
             canAttack = false;
             isAttacking = true;
-            //anim.ResetTrigger("Attack");
         }
         if (canAttack)
             nextAttackReady = true;
@@ -72,9 +74,7 @@ public class SwordBehavior : MonoBehaviour
 
     public void AllowNextAttackInput()
     {
-        Debug.Log("success");
         canAttack = true;
-        //anim.ResetTrigger("Attack");
     }
 
     public void CheckForContinueAttack()
@@ -86,18 +86,26 @@ public class SwordBehavior : MonoBehaviour
             nextAttackReady = false;
         }
         else
+        {
             isAttacking = false;
+            anim.SetTrigger("StopAttack");
+        }
     }
 
     public void ChargingAttack()
-    {
+    {    
+        anim.ResetTrigger("StopAttack");
         if (currentChargeTime >= 0.3f)
         {
-            anim.SetBool("Charging", true);
+            anim.SetBool("Charging", true);     
         }
-        if (currentChargeTime <= maxChargeTime)
+        if (currentChargeTime < maxChargeTime)
         {
             currentChargeTime += Time.deltaTime;
+        }
+        else
+        {
+            anim.SetTrigger("FullyCharged");
         }
             
     }
@@ -107,15 +115,14 @@ public class SwordBehavior : MonoBehaviour
         swordTrail.Play();
         anim.SetBool("ChargeAttacking", true);
         anim.SetBool("Charging", false);
+        anim.ResetTrigger("FullyCharged");
         storedChargeTime = chargedTime;
 
         float lensDistortAmount = maxLensDistortAmount * ((storedChargeTime - minChargeTime) / (maxChargeTime - minChargeTime));
         postProcessing.startLensDistort(lensDistortAmount);
-        Debug.Log(lensDistortAmount);
 
         float chargeSpeed = baseChargeSpeed + extraChargeSpeed * ((storedChargeTime - minChargeTime) / (maxChargeTime - minChargeTime));
         chargeSpeed = Mathf.Round(chargeSpeed);
-        Debug.Log(chargeSpeed);
 
         StartCoroutine(playerMovement.ChargeAttackMovement(chargeSpeed, chargedTime, chargeDuration));
         Invoke(nameof(EndChargeAttack), chargeDuration);
@@ -132,7 +139,6 @@ public class SwordBehavior : MonoBehaviour
     {
         float chargeDamage = baseChargeDamage + extraChargeDamage * ((storedChargeTime - minChargeTime) / (maxChargeTime - minChargeTime));
         chargeDamage = Mathf.Round(chargeDamage);
-        Debug.Log(chargeDamage);
         Vector3 vfxPos = hitVfxLocation.position;
         hitTarget.GetComponent<EnemyBehavior>().TakeDamage(chargeDamage);
         GameObject hitEffect = Instantiate(hitVFX, vfxPos, Quaternion.identity);
