@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class SwordBehavior : MonoBehaviour
 {
+    [Header("Parameters")]
     public float swordDamage;
     public float minChargeTime;
     public float maxChargeTime;
@@ -14,26 +16,35 @@ public class SwordBehavior : MonoBehaviour
     public float chargeDuration;
     public float maxLensDistortAmount;
 
+    [Header("Assignables")]
     public Transform hitVfxLocation;
+    public Transform chargeVFXLocation;
     [HideInInspector] public BoxCollider swordCollider;
     [HideInInspector] public Animator anim;
-    [HideInInspector] public bool canAttack = true;
+    [HideInInspector] public MeshRenderer mr;
     public PlayerMovement playerMovement;
+    public VisualEffect chargingVFX;
+    public Material swordMat;
+    public Material glowingMat;
     public PostProcessing postProcessing;
     public ParticleSystem swordTrail;
     public GameObject hitVFX;
+    public GameObject fullyChargedVFX;
     public CameraHandler camHandler;
 
-    [SerializeField] private bool isAttacking = false;
-    [SerializeField] private bool nextAttackReady = false;
-    [SerializeField] private bool charging = false;
-    [SerializeField] private float currentChargeTime = 0f;
+    private bool canAttack = true;
+    private bool isAttacking = false;
+    private bool nextAttackReady = false;
+    private bool chargingVFXPlaying = false;
+    private bool fullyChargedVFXPlayed = false;
+    private float currentChargeTime = 0f;
     private float storedChargeTime = 0f;
 
     private void Start()
     {
         swordCollider = GetComponent<BoxCollider>();
         anim = GetComponent<Animator>();
+        mr = GetComponent<MeshRenderer>();
         swordCollider.enabled = false;
     }
 
@@ -54,9 +65,14 @@ public class SwordBehavior : MonoBehaviour
             else
             {
                 anim.SetBool("Charging", false);
-                anim.ResetTrigger("StopAttack");
             }     
+
             currentChargeTime = 0;
+            chargingVFX.Stop();
+            chargingVFXPlaying = false;
+
+            if (fullyChargedVFXPlayed)
+                fullyChargedVFXPlayed = false;
         }
     }
 
@@ -97,7 +113,15 @@ public class SwordBehavior : MonoBehaviour
         anim.ResetTrigger("StopAttack");
         if (currentChargeTime >= 0.3f)
         {
-            anim.SetBool("Charging", true);     
+            anim.SetBool("Charging", true);
+        }
+        if (currentChargeTime > minChargeTime)
+        {
+            if (!chargingVFXPlaying)
+            {
+                chargingVFX.Play();
+                chargingVFXPlaying = true;
+            }
         }
         if (currentChargeTime < maxChargeTime)
         {
@@ -106,6 +130,15 @@ public class SwordBehavior : MonoBehaviour
         else
         {
             anim.SetTrigger("FullyCharged");
+            chargingVFX.Stop();
+            chargingVFXPlaying = false;
+            mr.material = glowingMat;
+            if (!fullyChargedVFXPlayed)
+            {
+                fullyChargedVFXPlayed = true;
+                Instantiate(fullyChargedVFX, chargeVFXLocation);
+            }
+                fullyChargedVFXPlayed = true;
         }
             
     }
@@ -133,6 +166,8 @@ public class SwordBehavior : MonoBehaviour
         anim.SetBool("ChargeAttacking", false);
         postProcessing.EndLensDistort();
         storedChargeTime = 0f;
+        if (mr.material != swordMat)
+            mr.material = swordMat;
     }
 
     public void ChargeAttackHit(Collider hitTarget)
