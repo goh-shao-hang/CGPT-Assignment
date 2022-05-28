@@ -371,6 +371,7 @@ GameObject:
   - component: {fileID: 2589681374361444006}
   - component: {fileID: 2589681374361444025}
   - component: {fileID: 2589681374361444007}
+  - component: {fileID: 663183160}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -434,11 +435,27 @@ MonoBehaviour:
   groundDrag: 3
   airDrag: 0.1
   groundCheckRadius: 0.2
+  chargeAttacking: 0
   whatIsGround:
     serializedVersion: 2
     m_Bits: 64
-  groundCheck: {fileID: 0}
+  groundCheck: {fileID: 1642966615677299453}
   orientation: {fileID: 2589681375406361056}
+  mainCam: {fileID: 0}
+  sword: {fileID: 1681747059}
+--- !u!65 &663183160
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2589681374361444024}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.6103039, y: 1, z: 0.53353554}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2589681375297480207
 GameObject:
   m_ObjectHideFlags: 0
@@ -663,43 +680,43 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2265919033007246977, guid: b4b25780a098f3c42835d5681b2e4f88, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.45
+      value: 0.35
       objectReference: {fileID: 0}
     - target: {fileID: 2265919033007246977, guid: b4b25780a098f3c42835d5681b2e4f88, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.18
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2265919033007246977, guid: b4b25780a098f3c42835d5681b2e4f88, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.5
+      value: 0.35
       objectReference: {fileID: 0}
     - target: {fileID: 2265919033007246977, guid: b4b25780a098f3c42835d5681b2e4f88, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.9772918
+      value: 0.52865255
       objectReference: {fileID: 0}
     - target: {fileID: 2265919033007246977, guid: b4b25780a098f3c42835d5681b2e4f88, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.050144162
+      value: -0.45869666
       objectReference: {fileID: 0}
     - target: {fileID: 2265919033007246977, guid: b4b25780a098f3c42835d5681b2e4f88, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.1040207
+      value: 0.5457517
       objectReference: {fileID: 0}
     - target: {fileID: 2265919033007246977, guid: b4b25780a098f3c42835d5681b2e4f88, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.17766829
+      value: 0.4607374
       objectReference: {fileID: 0}
     - target: {fileID: 2265919033007246977, guid: b4b25780a098f3c42835d5681b2e4f88, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
+      value: -63.9
       objectReference: {fileID: 0}
     - target: {fileID: 2265919033007246977, guid: b4b25780a098f3c42835d5681b2e4f88, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 170
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 2265919033007246977, guid: b4b25780a098f3c42835d5681b2e4f88, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
+      value: -2.8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b4b25780a098f3c42835d5681b2e4f88, type: 3}
@@ -753,14 +770,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf679ae3c3aff1a46bd9c14887329ebc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackCD: 0.5
   swordDamage: 10
-  minChargeTime: 1
+  minChargeTime: 0.5
   maxChargeTime: 2
+  baseChargeDamage: 15
+  extraChargeDamage: 25
+  baseChargeSpeed: 10
+  extraChargeSpeed: 15
+  chargeDuration: 0.5
+  maxLensDistortAmount: -0.8
   hitVfxLocation: {fileID: 605363881}
   swordCollider: {fileID: 0}
   anim: {fileID: 0}
   canAttack: 1
+  playerMovement: {fileID: 2589681374361444007}
+  postProcessing: {fileID: 0}
   swordTrail: {fileID: 1193632106}
   hitVFX: {fileID: 4084903321678796394, guid: d7b3cc7d5b8a40e438fc4efeafd0f56c, type: 3}
   camHandler: {fileID: 958115185}

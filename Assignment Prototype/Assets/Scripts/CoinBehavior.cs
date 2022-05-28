@@ -27,10 +27,10 @@ public class CoinBehavior : MonoBehaviour
             rb.isKinematic = false;    
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (isFollowing)
-            transform.position = Vector3.SmoothDamp(transform.position, coinCollector.position, ref coinVelocity, Time.deltaTime * followDamp);
+            transform.position = Vector3.SmoothDamp(transform.position, coinCollector.position, ref coinVelocity, Time.fixedDeltaTime * followDamp);
     }
 
     private void OnCollisionEnter(Collision collision)

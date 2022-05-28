@@ -4,18 +4,22 @@ using UnityEngine;
 
 public class SwordBehavior : MonoBehaviour
 {
-    public float attackCD = 0.5f;
-    public float swordDamage = 10f;
-    public float chargeDamage = 20f;
+    public float swordDamage;
     public float minChargeTime;
     public float maxChargeTime;
-    public float chargeSpeed;
+    public float baseChargeDamage;
+    public float extraChargeDamage;
+    public float baseChargeSpeed;
+    public float extraChargeSpeed;
     public float chargeDuration;
+    public float maxLensDistortAmount;
+
     public Transform hitVfxLocation;
     [HideInInspector] public BoxCollider swordCollider;
     [HideInInspector] public Animator anim;
     [HideInInspector] public bool canAttack = true;
     public PlayerMovement playerMovement;
+    public PostProcessing postProcessing;
     public ParticleSystem swordTrail;
     public GameObject hitVFX;
     public CameraHandler camHandler;
@@ -24,6 +28,7 @@ public class SwordBehavior : MonoBehaviour
     [SerializeField] private bool nextAttackReady = false;
     [SerializeField] private bool charging = false;
     [SerializeField] private float currentChargeTime = 0f;
+    private float storedChargeTime = 0f;
 
     private void Start()
     {
@@ -46,8 +51,12 @@ public class SwordBehavior : MonoBehaviour
         {
             if (currentChargeTime >= minChargeTime)
                 ChargeAttack(currentChargeTime);
+            else
+            {
+                anim.SetBool("Charging", false);
+                anim.ResetTrigger("StopAttack");
+            }     
             currentChargeTime = 0;
-            anim.SetBool("Charging", false);
         }
     }
 
@@ -59,7 +68,7 @@ public class SwordBehavior : MonoBehaviour
             canAttack = false;
             isAttacking = true;
         }
-        else if (canAttack)
+        if (canAttack)
             nextAttackReady = true;
     }
 
@@ -77,20 +86,26 @@ public class SwordBehavior : MonoBehaviour
             nextAttackReady = false;
         }
         else
+        {
             isAttacking = false;
+            anim.SetTrigger("StopAttack");
+        }
     }
 
     public void ChargingAttack()
-    {
-        //charging = true;
+    {    
+        anim.ResetTrigger("StopAttack");
         if (currentChargeTime >= 0.3f)
         {
-            Debug.Log("charging");
-            anim.SetBool("Charging", true);
+            anim.SetBool("Charging", true);     
         }
-        if (currentChargeTime <= maxChargeTime)
+        if (currentChargeTime < maxChargeTime)
         {
             currentChargeTime += Time.deltaTime;
+        }
+        else
+        {
+            anim.SetTrigger("FullyCharged");
         }
             
     }
@@ -99,19 +114,31 @@ public class SwordBehavior : MonoBehaviour
     {
         swordTrail.Play();
         anim.SetBool("ChargeAttacking", true);
-        StartCoroutine(playerMovement.ChargeAttackMovement(chargeSpeed, chargeDuration));
-        Debug.Log("Charge Attacked!");
+        anim.SetBool("Charging", false);
+        anim.ResetTrigger("FullyCharged");
+        storedChargeTime = chargedTime;
+
+        float lensDistortAmount = maxLensDistortAmount * ((storedChargeTime - minChargeTime) / (maxChargeTime - minChargeTime));
+        postProcessing.startLensDistort(lensDistortAmount);
+
+        float chargeSpeed = baseChargeSpeed + extraChargeSpeed * ((storedChargeTime - minChargeTime) / (maxChargeTime - minChargeTime));
+        chargeSpeed = Mathf.Round(chargeSpeed);
+
+        StartCoroutine(playerMovement.ChargeAttackMovement(chargeSpeed, chargedTime, chargeDuration));
         Invoke(nameof(EndChargeAttack), chargeDuration);
-        //charging = false;
     }
 
     public void EndChargeAttack()
     {
         anim.SetBool("ChargeAttacking", false);
+        postProcessing.EndLensDistort();
+        storedChargeTime = 0f;
     }
 
     public void ChargeAttackHit(Collider hitTarget)
     {
+        float chargeDamage = baseChargeDamage + extraChargeDamage * ((storedChargeTime - minChargeTime) / (maxChargeTime - minChargeTime));
+        chargeDamage = Mathf.Round(chargeDamage);
         Vector3 vfxPos = hitVfxLocation.position;
         hitTarget.GetComponent<EnemyBehavior>().TakeDamage(chargeDamage);
         GameObject hitEffect = Instantiate(hitVFX, vfxPos, Quaternion.identity);
@@ -129,14 +156,7 @@ public class SwordBehavior : MonoBehaviour
     {
         swordCollider.enabled = false;
         swordTrail.Stop();
-    }
-
-    IEnumerator AttackCD()
-    {
-        yield return new WaitForSeconds(attackCD);
-    }
-
-    
+    }   
 
     void OnTriggerEnter(Collider other)
     {

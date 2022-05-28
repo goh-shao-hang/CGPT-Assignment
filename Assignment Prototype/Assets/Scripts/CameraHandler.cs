@@ -1,19 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 public class CameraHandler : MonoBehaviour
 {
     public Transform playerHead;
-    public Transform mainCam;
+    public Camera mainCam;
     public GameObject weaponHolder;
+
+    private void Awake()
+    {
+        mainCam = Camera.main;
+    }
 
     // Update is called once per frame
     void Update()
     {
         //Put camera at player's eye position
         transform.position = playerHead.transform.position;
-        weaponHolder.transform.rotation = mainCam.rotation;
+        weaponHolder.transform.rotation = mainCam.transform.rotation;
     }
 
     public IEnumerator CameraShake(float duration, float magnitude)
