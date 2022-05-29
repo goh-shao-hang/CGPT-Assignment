@@ -371,6 +371,7 @@ GameObject:
   - component: {fileID: 2589681374361444006}
   - component: {fileID: 2589681374361444025}
   - component: {fileID: 2589681374361444007}
+  - component: {fileID: 8119832392970106909}
   - component: {fileID: 663183160}
   m_Layer: 0
   m_Name: Player
@@ -428,7 +429,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3968b7a198b92b4dbdc8c6193c4a580, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 7
+  walkSpeed: 0
+  sprintSpeed: 0
   jumpForce: 9
   jumpCD: 0.25
   airMultiplier: 0.4
@@ -443,6 +445,24 @@ MonoBehaviour:
   orientation: {fileID: 2589681375406361056}
   mainCam: {fileID: 0}
   sword: {fileID: 1681747059}
+  playerHealthAndStamina: {fileID: 0}
+  postProcessing: {fileID: 0}
+--- !u!114 &8119832392970106909
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2589681374361444024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb91beff8b520c14fa4d51b3c44931b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 0
+  maxStamina: 0
+  currentHealth: 0
+  currentStamina: 0
 --- !u!65 &663183160
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -780,18 +800,19 @@ MonoBehaviour:
   chargeDuration: 0.5
   maxLensDistortAmount: -0.8
   hitVfxLocation: {fileID: 605363881}
+  chargeVFXLocation: {fileID: 0}
   swordCollider: {fileID: 0}
   anim: {fileID: 0}
-  canAttack: 1
+  mr: {fileID: 0}
   playerMovement: {fileID: 2589681374361444007}
+  chargingVFX: {fileID: 0}
+  swordMat: {fileID: 0}
+  glowingMat: {fileID: 0}
   postProcessing: {fileID: 0}
   swordTrail: {fileID: 1193632106}
   hitVFX: {fileID: 4084903321678796394, guid: d7b3cc7d5b8a40e438fc4efeafd0f56c, type: 3}
+  fullyChargedVFX: {fileID: 0}
   camHandler: {fileID: 958115185}
-  isAttacking: 0
-  nextAttackReady: 0
-  charging: 0
-  currentChargeTime: 0
 --- !u!4 &3345919854392884131 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2265919033007246977, guid: b4b25780a098f3c42835d5681b2e4f88, type: 3}

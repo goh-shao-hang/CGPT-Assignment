@@ -123,6 +123,17 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &12751791 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8119832392970106909, guid: 469f93e5545b62244a699b02bc157395, type: 3}
+  m_PrefabInstance: {fileID: 2589681373733489078}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb91beff8b520c14fa4d51b3c44931b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &136906079 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 605363881, guid: 469f93e5545b62244a699b02bc157395, type: 3}
@@ -191,6 +202,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   volume: {fileID: 223293435}
+  currentLensDistortion: 0
 --- !u!1001 &262756833
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5371,6 +5383,38 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2589681374361444007, guid: 469f93e5545b62244a699b02bc157395, type: 3}
+      propertyPath: walkSpeed
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2589681374361444007, guid: 469f93e5545b62244a699b02bc157395, type: 3}
+      propertyPath: maxStamina
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 2589681374361444007, guid: 469f93e5545b62244a699b02bc157395, type: 3}
+      propertyPath: sprintSpeed
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 2589681374361444007, guid: 469f93e5545b62244a699b02bc157395, type: 3}
+      propertyPath: postProcessing
+      value: 
+      objectReference: {fileID: 223293437}
+    - target: {fileID: 2589681374361444007, guid: 469f93e5545b62244a699b02bc157395, type: 3}
+      propertyPath: staminaRegenRate
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2589681374361444007, guid: 469f93e5545b62244a699b02bc157395, type: 3}
+      propertyPath: staminaRegenDelay
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2589681374361444007, guid: 469f93e5545b62244a699b02bc157395, type: 3}
+      propertyPath: playerHealthAndStamina
+      value: 
+      objectReference: {fileID: 12751791}
+    - target: {fileID: 2589681374361444007, guid: 469f93e5545b62244a699b02bc157395, type: 3}
+      propertyPath: sprintStaminaConsumption
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 2589681374361444024, guid: 469f93e5545b62244a699b02bc157395, type: 3}
       propertyPath: m_Name
       value: Player
@@ -5419,6 +5463,22 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 8368722655750445499, guid: 9f7def21017dbc543adab5639bb8ac0e, type: 3}
+    - target: {fileID: 8119832392970106909, guid: 469f93e5545b62244a699b02bc157395, type: 3}
+      propertyPath: maxHealth
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 8119832392970106909, guid: 469f93e5545b62244a699b02bc157395, type: 3}
+      propertyPath: maxStamina
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 8119832392970106909, guid: 469f93e5545b62244a699b02bc157395, type: 3}
+      propertyPath: staminaRegenRate
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8119832392970106909, guid: 469f93e5545b62244a699b02bc157395, type: 3}
+      propertyPath: staminaRegenDelay
+      value: 1.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 469f93e5545b62244a699b02bc157395, type: 3}
 --- !u!1001 &6970526493849011837

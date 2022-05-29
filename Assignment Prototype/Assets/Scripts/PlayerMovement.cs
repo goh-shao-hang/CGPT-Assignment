@@ -4,17 +4,29 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float moveSpeed;
+    [Header("Parameters")]
+    //Speed
+    private float moveSpeed;
+    public float walkSpeed;
+    public float sprintSpeed;
+    //Stamina
+    public float maxStamina;
+    public float sprintStaminaConsumption;
+    public float staminaRegenRate;
+    public float staminaRegenDelay;
+    //Jump
     public float jumpForce;
     public float jumpCD;
     public float airMultiplier;
     bool readyToJump = true;
+    //Drag
     public float groundDrag;
     public float airDrag;
     public float groundCheckRadius;
-    public bool chargeAttacking;
     private bool grounded;
-    
+    public bool chargeAttacking;
+
+    [Header("Assignables")]
     public LayerMask whatIsGround;
     public Transform groundCheck;
     public Transform orientation;
@@ -22,10 +34,12 @@ public class PlayerMovement : MonoBehaviour
     public SwordBehavior sword;
     private Rigidbody rb;
     private Collider dashTrigger;
+    public PostProcessing postProcessing;
 
-    float xInput, yInput;
-
-    Vector3 moveDirection;
+    [SerializeField] private float currentStamina;
+    [SerializeField] private float staminaRegenTimer;
+    private float xInput, yInput;
+    private Vector3 moveDirection;
 
     private void Start()
     {
@@ -34,16 +48,19 @@ public class PlayerMovement : MonoBehaviour
         rb.freezeRotation = true;
         dashTrigger = GetComponent<BoxCollider>();
         mainCam = Camera.main;
+
+        currentStamina = maxStamina;
     }
 
     private void Update()
     {
         if (chargeAttacking)
-            return;
+            return;  
 
         GroundCheck();
         MyInput();
         SpeedControl();
+        CalculateStamina();
     }
 
     private void FixedUpdate()
@@ -71,6 +88,29 @@ public class PlayerMovement : MonoBehaviour
 
         moveDirection = orientation.forward * yInput + orientation.right * xInput;
 
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            if (currentStamina > 0)
+            {
+                moveSpeed = sprintSpeed;
+                currentStamina -= sprintStaminaConsumption * Time.deltaTime;
+                staminaRegenTimer = 0f;
+                postProcessing.startLensDistort(-0.2f);  
+            }
+            else
+            {
+                moveSpeed = walkSpeed;
+                if (postProcessing.currentLensDistortion < 0)
+                    postProcessing.EndLensDistort();
+            }
+        }
+        else
+        {
+            moveSpeed = walkSpeed;
+            if (postProcessing.currentLensDistortion < 0)
+                postProcessing.EndLensDistort();
+        }
+            
         if (grounded)
             rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
         else
@@ -94,6 +134,22 @@ public class PlayerMovement : MonoBehaviour
             Vector3 velCap = flatVel.normalized * moveSpeed;
             rb.velocity = new Vector3(velCap.x, rb.velocity.y, velCap.z);
         }
+    }
+
+    public void CalculateStamina()
+    {
+        if (currentStamina < maxStamina)
+        {
+            if (staminaRegenTimer > staminaRegenDelay)
+            {
+                currentStamina += staminaRegenRate * Time.deltaTime;
+            }
+            else
+            {
+                staminaRegenTimer += Time.deltaTime;
+            }
+        }
+        currentStamina = Mathf.Clamp(currentStamina, 0, maxStamina);
     }
 
     private void Jump()

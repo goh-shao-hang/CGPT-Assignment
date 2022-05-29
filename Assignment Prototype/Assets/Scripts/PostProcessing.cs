@@ -9,6 +9,7 @@ public class PostProcessing : MonoBehaviour
     public Volume volume;
     LensDistortion lensDistortion;
 
+    public float currentLensDistortion;
     private float defaultLensDistortion = 0f;
     private float targetLensDistortIntensity = 0f;
 
@@ -25,6 +26,7 @@ public class PostProcessing : MonoBehaviour
     {
         if (lensDistortion.intensity.value != targetLensDistortIntensity)   
             LensDistort(targetLensDistortIntensity);
+        currentLensDistortion = lensDistortion.intensity.value;
     }
 
     public void startLensDistort(float targetValue)
