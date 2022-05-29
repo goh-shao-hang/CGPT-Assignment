@@ -50,6 +50,10 @@ public class SwordBehavior : MonoBehaviour
 
     private void Update()
     {
+        /* uncomment to test player getting hit
+        if (Input.GetMouseButtonDown(2))
+            anim.SetTrigger("Blocked"); */
+
         if (Input.GetMouseButtonDown(0))
         {
             StartAttack();
@@ -74,6 +78,13 @@ public class SwordBehavior : MonoBehaviour
             if (fullyChargedVFXPlayed)
                 fullyChargedVFXPlayed = false;
         }
+        if (Input.GetMouseButton(1))
+        {
+            anim.SetBool("Blocking", true);
+            StopCharging();
+        }
+        else if (Input.GetMouseButtonUp(1))
+            anim.SetBool("Blocking", false);
     }
 
     public void StartAttack()
@@ -159,6 +170,16 @@ public class SwordBehavior : MonoBehaviour
 
         StartCoroutine(playerMovement.ChargeAttackMovement(chargeSpeed, chargedTime, chargeDuration));
         Invoke(nameof(EndChargeAttack), chargeDuration);
+    }
+
+    public void StopCharging()
+    {
+        currentChargeTime = 0;
+        chargingVFX.Stop();
+        if (mr.material != swordMat)
+            mr.material = swordMat;
+        fullyChargedVFXPlayed = false;
+        chargingVFXPlaying = false;
     }
 
     public void EndChargeAttack()
