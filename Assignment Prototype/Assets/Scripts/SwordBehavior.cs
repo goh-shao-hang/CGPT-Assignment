@@ -14,7 +14,7 @@ public class SwordBehavior : MonoBehaviour
     public float baseChargeSpeed;
     public float extraChargeSpeed;
     public float chargeDuration;
-    public float maxLensDistortAmount;
+    public float maxPostProcessWeight;
 
     [Header("Assignables")]
     public Transform hitVfxLocation;
@@ -81,6 +81,7 @@ public class SwordBehavior : MonoBehaviour
         if (Input.GetMouseButton(1))
         {
             anim.SetBool("Blocking", true);
+            anim.ResetTrigger("FullyCharged");
             StopCharging();
         }
         else if (Input.GetMouseButtonUp(1))
@@ -162,8 +163,8 @@ public class SwordBehavior : MonoBehaviour
         anim.ResetTrigger("FullyCharged");
         storedChargeTime = chargedTime;
 
-        float lensDistortAmount = maxLensDistortAmount * ((storedChargeTime - minChargeTime) / (maxChargeTime - minChargeTime));
-        postProcessing.startLensDistort(lensDistortAmount);
+        float targetWeight = maxPostProcessWeight * ((storedChargeTime - minChargeTime) / (maxChargeTime - minChargeTime));
+        postProcessing.AddWeight(targetWeight);
 
         float chargeSpeed = baseChargeSpeed + extraChargeSpeed * ((storedChargeTime - minChargeTime) / (maxChargeTime - minChargeTime));
         chargeSpeed = Mathf.Round(chargeSpeed);
@@ -185,7 +186,7 @@ public class SwordBehavior : MonoBehaviour
     public void EndChargeAttack()
     {
         anim.SetBool("ChargeAttacking", false);
-        postProcessing.EndLensDistort();
+        postProcessing.RestoreWeight();
         storedChargeTime = 0f;
         if (mr.material != swordMat)
             mr.material = swordMat;

@@ -7,40 +7,40 @@ using UnityEngine.Rendering.Universal;
 public class PostProcessing : MonoBehaviour
 {
     public Volume volume;
-    LensDistortion lensDistortion;
 
-    public float currentLensDistortion;
-    private float defaultLensDistortion = 0f;
-    private float targetLensDistortIntensity = 0f;
+    public float currentWeight = 0f;
+    private float defaultWeight = 0f;
+    private float targetWeight = 0f;
 
     // Start is called before the first frame update
     void Start()
     {
         volume = GetComponent<Volume>();
-        volume.profile.TryGet(out lensDistortion); 
-        lensDistortion.intensity.value = defaultLensDistortion;
+        volume.weight = defaultWeight;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (lensDistortion.intensity.value != targetLensDistortIntensity)   
-            LensDistort(targetLensDistortIntensity);
-        currentLensDistortion = lensDistortion.intensity.value;
+        if (volume.weight != targetWeight)   
+            LerpWeight();  
+        currentWeight = volume.weight;
     }
 
-    public void startLensDistort(float targetValue)
+    public void AddWeight(float target)
     {
-        targetLensDistortIntensity = targetValue;
+        targetWeight = target;
     }
 
-    public void EndLensDistort()
+    public void RestoreWeight()
     {
-        targetLensDistortIntensity = defaultLensDistortion;
+        targetWeight = defaultWeight;
     }
 
-    public void LensDistort(float targetValue)
+    public void LerpWeight()
     {
-        lensDistortion.intensity.value = Mathf.Lerp(lensDistortion.intensity.value, targetValue, 0.025f);
+        volume.weight = Mathf.Clamp01(Mathf.Lerp(volume.weight, targetWeight, 0.025f));
+        if (volume.weight <= 0.0001f)
+            volume.weight = 0f;
     }
 }

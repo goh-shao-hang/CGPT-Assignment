@@ -51,7 +51,7 @@ public class EnemyBehavior : MonoBehaviour
 
     public void DropCoins()
     {
-        int coinAmount = Random.Range(minCoin, maxCoin);
+        int coinAmount = Random.Range(minCoin, maxCoin + 1);
         for (int count = 1; count <= coinAmount; count++)
         {
             Vector3 coinLaunch = new Vector3(Random.Range(-coinLaunchForce, coinLaunchForce), Random.Range(-coinLaunchForce, coinLaunchForce), Random.Range(-coinLaunchForce, coinLaunchForce));

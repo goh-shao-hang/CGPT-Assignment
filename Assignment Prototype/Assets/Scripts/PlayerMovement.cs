@@ -88,29 +88,29 @@ public class PlayerMovement : MonoBehaviour
 
         moveDirection = orientation.forward * yInput + orientation.right * xInput;
 
-        if (Input.GetKey(KeyCode.LeftShift))
+        if (Input.GetKey(KeyCode.LeftShift) && (rb.velocity != Vector3.zero))
         {
             if (currentStamina > 0)
             {
                 moveSpeed = sprintSpeed;
                 currentStamina -= sprintStaminaConsumption * Time.deltaTime;
                 staminaRegenTimer = 0f;
-                postProcessing.startLensDistort(-0.2f);  
+                postProcessing.AddWeight(0.25f); 
             }
             else
             {
                 moveSpeed = walkSpeed;
-                if (postProcessing.currentLensDistortion < 0)
-                    postProcessing.EndLensDistort();
+                if (postProcessing.currentWeight > 0)
+                    postProcessing.RestoreWeight();                    
             }
         }
         else
         {
             moveSpeed = walkSpeed;
-            if (postProcessing.currentLensDistortion < 0)
-                postProcessing.EndLensDistort();
+            if (postProcessing.currentWeight > 0)
+                postProcessing.RestoreWeight();
         }
-            
+
         if (grounded)
             rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
         else
