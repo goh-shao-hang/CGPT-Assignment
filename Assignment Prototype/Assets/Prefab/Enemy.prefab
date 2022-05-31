@@ -265,7 +265,7 @@ MonoBehaviour:
   maxCoin: 12
   coin: {fileID: 8471951160505819578, guid: 8e4ba0eb273fbbf42b637a1e59d2ceee, type: 3}
   coinSpawner: {fileID: 7870849679910126501}
-  coinLaunchForce: 2
+  coinLaunchForce: 0.02
   anim: {fileID: 0}
   parentCollider: {fileID: 0}
   colliders: []

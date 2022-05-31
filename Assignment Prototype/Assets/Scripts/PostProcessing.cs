@@ -8,9 +8,11 @@ public class PostProcessing : MonoBehaviour
 {
     public Volume volume;
 
-    public float currentWeight = 0f;
-    private float defaultWeight = 0f;
+    public float defaultWeight = 0f;
+    [HideInInspector] public float currentWeight = 0f;
+    public float lerpValue = 0.025f;
     private float targetWeight = 0f;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -39,7 +41,7 @@ public class PostProcessing : MonoBehaviour
 
     public void LerpWeight()
     {
-        volume.weight = Mathf.Clamp01(Mathf.Lerp(volume.weight, targetWeight, 0.025f));
+        volume.weight = Mathf.Clamp01(Mathf.Lerp(volume.weight, targetWeight, lerpValue));
         if (volume.weight <= 0.0001f)
             volume.weight = 0f;
     }

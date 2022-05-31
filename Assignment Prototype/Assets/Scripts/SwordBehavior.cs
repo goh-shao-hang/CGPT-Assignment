@@ -26,7 +26,7 @@ public class SwordBehavior : MonoBehaviour
     public VisualEffect chargingVFX;
     public Material swordMat;
     public Material glowingMat;
-    public PostProcessing postProcessing;
+    public PostProcessing speedVolume;
     public ParticleSystem swordTrail;
     public GameObject hitVFX;
     public GameObject fullyChargedVFX;
@@ -39,6 +39,7 @@ public class SwordBehavior : MonoBehaviour
     private bool fullyChargedVFXPlayed = false;
     private float currentChargeTime = 0f;
     private float storedChargeTime = 0f;
+    [HideInInspector] public bool isBlocking;
 
     private void Start()
     {
@@ -80,12 +81,12 @@ public class SwordBehavior : MonoBehaviour
         }
         if (Input.GetMouseButton(1))
         {
-            anim.SetBool("Blocking", true);
-            anim.ResetTrigger("FullyCharged");
-            StopCharging();
+            StartBlocking();
         }
         else if (Input.GetMouseButtonUp(1))
-            anim.SetBool("Blocking", false);
+        {
+            StopBlocking();
+        }
     }
 
     public void StartAttack()
@@ -163,8 +164,8 @@ public class SwordBehavior : MonoBehaviour
         anim.ResetTrigger("FullyCharged");
         storedChargeTime = chargedTime;
 
-        float targetWeight = maxPostProcessWeight * ((storedChargeTime - minChargeTime) / (maxChargeTime - minChargeTime));
-        postProcessing.AddWeight(targetWeight);
+        float targetWeight = 1 * ((storedChargeTime - minChargeTime) / (maxChargeTime - minChargeTime));
+        speedVolume.AddWeight(targetWeight);
 
         float chargeSpeed = baseChargeSpeed + extraChargeSpeed * ((storedChargeTime - minChargeTime) / (maxChargeTime - minChargeTime));
         chargeSpeed = Mathf.Round(chargeSpeed);
@@ -186,7 +187,7 @@ public class SwordBehavior : MonoBehaviour
     public void EndChargeAttack()
     {
         anim.SetBool("ChargeAttacking", false);
-        postProcessing.RestoreWeight();
+        speedVolume.RestoreWeight();
         storedChargeTime = 0f;
         if (mr.material != swordMat)
             mr.material = swordMat;
@@ -201,6 +202,20 @@ public class SwordBehavior : MonoBehaviour
         GameObject hitEffect = Instantiate(hitVFX, vfxPos, Quaternion.identity);
         Destroy(hitEffect, 2);
         StartCoroutine(camHandler.CameraShake(0.15f, 1f));
+    }
+
+    public void StartBlocking()
+    {
+        anim.SetBool("Blocking", true);
+        anim.ResetTrigger("FullyCharged");
+        StopCharging();
+        isBlocking = true;
+    }
+
+    public void StopBlocking()
+    {
+        anim.SetBool("Blocking", false);
+        isBlocking = false;
     }
 
     public void ActivateCollider()

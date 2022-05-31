@@ -34,7 +34,7 @@ public class PlayerMovement : MonoBehaviour
     public SwordBehavior sword;
     private Rigidbody rb;
     private Collider dashTrigger;
-    public PostProcessing postProcessing;
+    public PostProcessing speedVolume;
 
     [SerializeField] private float currentStamina;
     [SerializeField] private float staminaRegenTimer;
@@ -47,6 +47,7 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
         dashTrigger = GetComponent<BoxCollider>();
+        dashTrigger.enabled = false;
         mainCam = Camera.main;
 
         currentStamina = maxStamina;
@@ -95,20 +96,20 @@ public class PlayerMovement : MonoBehaviour
                 moveSpeed = sprintSpeed;
                 currentStamina -= sprintStaminaConsumption * Time.deltaTime;
                 staminaRegenTimer = 0f;
-                postProcessing.AddWeight(0.25f); 
+                speedVolume.AddWeight(0.25f); 
             }
             else
             {
                 moveSpeed = walkSpeed;
-                if (postProcessing.currentWeight > 0)
-                    postProcessing.RestoreWeight();                    
+                if (speedVolume.currentWeight > 0)
+                    speedVolume.RestoreWeight();                    
             }
         }
         else
         {
             moveSpeed = walkSpeed;
-            if (postProcessing.currentWeight > 0)
-                postProcessing.RestoreWeight();
+            if (speedVolume.currentWeight > 0)
+                speedVolume.RestoreWeight();
         }
 
         if (grounded)
@@ -152,6 +153,12 @@ public class PlayerMovement : MonoBehaviour
         currentStamina = Mathf.Clamp(currentStamina, 0, maxStamina);
     }
 
+    public void ConsumeStamina(float staminaConsumed)
+    {
+        currentStamina -= staminaConsumed;
+        staminaRegenTimer = 0f;
+    }
+
     private void Jump()
     {
         readyToJump = false;
@@ -167,12 +174,14 @@ public class PlayerMovement : MonoBehaviour
     public IEnumerator ChargeAttackMovement(float chargeSpeed, float chargedTime, float chargeDuration)
     {
         chargeAttacking = true;
+        dashTrigger.enabled = true;
         Physics.IgnoreLayerCollision(8, 10, true); //Ignore enemy collision
         Physics.IgnoreLayerCollision(8, 9, true); //Ignore coin collision
         rb.drag = 0;
         rb.velocity = mainCam.transform.forward * chargeSpeed;
         yield return new WaitForSeconds(chargeDuration);
         chargeAttacking = false;
+        dashTrigger.enabled = false;
         rb.velocity = Vector3.zero;
         Physics.IgnoreLayerCollision(8, 10, false);
         Physics.IgnoreLayerCollision(8, 9, false);
@@ -182,6 +191,6 @@ public class PlayerMovement : MonoBehaviour
     {
         if (chargeAttacking)
             if (hitTarget.gameObject.tag == "Enemy")
-                sword.ChargeAttackHit(hitTarget);
+                sword.ChargeAttackHit(hitTarget);    
     }
 }

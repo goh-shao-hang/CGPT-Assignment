@@ -13,10 +13,13 @@ public class CoinBehavior : MonoBehaviour
     private bool isFollowing;
     private bool isDestroyed;
 
+    public PostProcessing coinVolume;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
         coinCollector = GameObject.FindGameObjectWithTag("CoinCollector").transform;
+        coinVolume = GameObject.Find("Coin Effects").GetComponent<PostProcessing>();
     }
 
     public IEnumerator FollowDelay()
@@ -30,7 +33,7 @@ public class CoinBehavior : MonoBehaviour
     private void FixedUpdate()
     {
         if (isFollowing)
-            transform.position = Vector3.SmoothDamp(transform.position, coinCollector.position, ref coinVelocity, Time.fixedDeltaTime * followDamp);
+            transform.position = Vector3.SmoothDamp(transform.position, coinCollector.position, ref coinVelocity, Time.fixedDeltaTime * followDamp + Random.Range(-0.1f, 0.1f));
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -39,6 +42,8 @@ public class CoinBehavior : MonoBehaviour
         {
             Destroy(gameObject);
             isDestroyed = true;
+            coinVolume.AddWeight(1);
+            coinVolume.Invoke(nameof(coinVolume.RestoreWeight), 0.25f);
             Debug.Log("COIN + 1");
         }       
     }
