@@ -232,7 +232,7 @@ public class SwordBehavior : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Enemy")
+        if (other.tag == "Enemy" || other.tag == "Boss")
         {
             Vector3 vfxPos = hitVfxLocation.position;
             other.GetComponent<EnemyBehavior>().TakeDamage(swordDamage);
