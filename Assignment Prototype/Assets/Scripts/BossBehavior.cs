@@ -5,6 +5,7 @@ using UnityEngine;
 public class BossBehavior : MonoBehaviour
 {
     public float wakeCD = 5f;
+    public float fireballDamage;
 
     public Collider bossFightTrigger;
     public Animator anim;
@@ -46,17 +47,20 @@ public class BossBehavior : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        transform.LookAt(player);
         if ((thisEnemy.currentHealth <= thisEnemy.maxHealth * 2 / 3) && (thisEnemy.currentHealth > thisEnemy.maxHealth * 1 / 3) && currentPhase == phases.phase1)
         {
             currentPhase = phases.phase2;
             StopCoroutine(wakeCoroutine);
             anim.SetTrigger("EnableShield");
+            anim.SetFloat("Phase", 2);
         }
         else if ((thisEnemy.currentHealth <= thisEnemy.maxHealth * 1 / 3) && currentPhase == phases.phase2)
         {
             currentPhase = phases.phase3;
             StopCoroutine(wakeCoroutine);
             anim.SetTrigger("EnableShield");
+            anim.SetFloat("Phase", 3);
         }
     }
 
@@ -103,8 +107,13 @@ public class BossBehavior : MonoBehaviour
                 break;
         }
         fireball = Instantiate(fireballPrefab, bossHand, false);
-        foreach(Transform child in fireball.transform)
+        fireball.GetComponent<Fireball>().fireballDamage = fireballDamage;
+        fireball.transform.localScale *= random;
+        foreach (Transform child in fireball.transform)
+        {
             child.transform.localScale = new Vector3(random, random, random);
+        }
+            
     }
 
     public void ThrowFireball()

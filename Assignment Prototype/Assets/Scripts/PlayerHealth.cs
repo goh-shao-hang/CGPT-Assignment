@@ -9,7 +9,11 @@ public class PlayerHealth : MonoBehaviour
     public float blockingStaminaConsumption;
 
     public SwordBehavior sword;
+    public Transform hitVfxLocation;
+    public GameObject hitVFX;
     public PlayerMovement playerMovement;
+    public CameraHandler camHandler;
+    public PostProcessing healthVolume;
 
     [SerializeField] private float currentHealth;
 
@@ -40,12 +44,21 @@ public class PlayerHealth : MonoBehaviour
         {
             Debug.Log("BLOCKED");
             playerMovement.ConsumeStamina(blockingStaminaConsumption);
+            sword.BlockSuccess();
+            StartCoroutine(camHandler.CameraShake(0.15f, 1f));
+            Vector3 vfxPos = hitVfxLocation.position;
+            GameObject hitEffect = Instantiate(hitVFX, vfxPos, Quaternion.identity);
+            Destroy(hitEffect, 2);
             return;
         }
         else
         {
             Debug.Log("TOOK " + damage + " DAMAGE");
             currentHealth -= damage;
+            healthVolume.AddWeight(1);
+            healthVolume.Invoke(nameof(healthVolume.RestoreWeight), 0.5f);
+            StartCoroutine(camHandler.CameraShake(0.5f, 1f));
+
             if (currentHealth <= 0)
                 Debug.Log("GAME OVER");
         }  

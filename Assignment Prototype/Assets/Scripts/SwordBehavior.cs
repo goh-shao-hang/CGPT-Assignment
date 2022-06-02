@@ -218,6 +218,11 @@ public class SwordBehavior : MonoBehaviour
         isBlocking = false;
     }
 
+    public void BlockSuccess()
+    {
+        anim.SetTrigger("Blocked");
+    }
+
     public void ActivateCollider()
     {
         swordCollider.enabled = true;

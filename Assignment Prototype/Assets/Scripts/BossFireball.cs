@@ -26,6 +26,10 @@ public class BossFireball : StateMachineBehaviour
         Rigidbody rb = fireball.GetComponent<Rigidbody>();
         Vector3 force = (fireball.transform.position - player.transform.position).normalized * throwForce;
         rb.AddForce(force, ForceMode.Impulse);
+        fireball.transform.rotation = Quaternion.LookRotation(rb.velocity);
+
+        if (fireball != null)
+            Destroy(fireball, 8f);
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
