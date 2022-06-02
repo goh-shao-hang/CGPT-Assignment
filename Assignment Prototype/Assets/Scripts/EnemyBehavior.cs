@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class EnemyBehavior : MonoBehaviour
 {
-    public float maxHealth = 40f;
-    [SerializeField] public float currentHealth;
+    [SerializeField] private float health = 50;
     [SerializeField] private bool dead = false;
     public int minCoin;
     public int maxCoin;
@@ -13,19 +12,18 @@ public class EnemyBehavior : MonoBehaviour
     public Transform coinSpawner;
     public float coinLaunchForce;
     [HideInInspector] public Animator anim;
-    [HideInInspector] public Collider[] parentColliders;
+    [HideInInspector] public CapsuleCollider parentCollider;
     [HideInInspector] public Collider[] colliders;
     [HideInInspector] public Rigidbody[] rigidbodies;
 
     private void Start()
     {
         anim = GetComponent<Animator>();
-        parentColliders = GetComponents<Collider>();
+        parentCollider = GetComponent<CapsuleCollider>();
         colliders = GetComponentsInChildren<Collider>();
         rigidbodies = GetComponentsInChildren<Rigidbody>();
         SetCollidersState(false);
         SetRigidbodiesState(true);
-        currentHealth = maxHealth;
     }
 
     public void TakeDamage(float damage)
@@ -33,9 +31,8 @@ public class EnemyBehavior : MonoBehaviour
         if (dead)
             return;
 
-        currentHealth -= damage;
-
-        if (currentHealth <= 0)
+        health -= damage;
+        if (health <= 0)
             EnemyDeath();
         else
         {
@@ -81,10 +78,6 @@ public class EnemyBehavior : MonoBehaviour
         {
             collider.enabled = state;
         }
-
-        foreach (Collider collider in parentColliders)
-        {
-            collider.enabled = !state;
-        }
+        parentCollider.enabled = !state;
     }
 }

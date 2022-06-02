@@ -218,11 +218,6 @@ public class SwordBehavior : MonoBehaviour
         isBlocking = false;
     }
 
-    public void BlockSuccess()
-    {
-        anim.SetTrigger("Blocked");
-    }
-
     public void ActivateCollider()
     {
         swordCollider.enabled = true;
@@ -237,7 +232,7 @@ public class SwordBehavior : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Enemy" || other.tag == "Boss")
+        if (other.tag == "Enemy")
         {
             Vector3 vfxPos = hitVfxLocation.position;
             other.GetComponent<EnemyBehavior>().TakeDamage(swordDamage);
