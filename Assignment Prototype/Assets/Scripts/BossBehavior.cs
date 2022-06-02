@@ -19,7 +19,6 @@ public class BossBehavior : MonoBehaviour
 
     [Header("Fireball")]
     public float throwForce;
-    public int fireballCount = 3;
 
     public Transform bossHand;
     public Transform player;
