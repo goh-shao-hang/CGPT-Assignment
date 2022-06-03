@@ -10,6 +10,7 @@ public class EnemyBehavior : MonoBehaviour
     public int minCoin;
     public int maxCoin;
     public GameObject coin;
+    public Transform player;
     public Transform coinSpawner;
     public float coinLaunchForce;
     [HideInInspector] public Animator anim;
@@ -23,9 +24,21 @@ public class EnemyBehavior : MonoBehaviour
         parentColliders = GetComponents<Collider>();
         colliders = GetComponentsInChildren<Collider>();
         rigidbodies = GetComponentsInChildren<Rigidbody>();
+        player = GameObject.Find("Player").GetComponent<Transform>();
         SetCollidersState(false);
         SetRigidbodiesState(true);
         currentHealth = maxHealth;
+    }
+
+    private void Update()
+    {
+        if (!dead)
+        {
+            Vector3 targetDir = player.position - transform.position;
+            targetDir.y = 0;
+            Quaternion targetRot = Quaternion.LookRotation(targetDir);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, Time.deltaTime * 5f);
+        }
     }
 
     public void TakeDamage(float damage)

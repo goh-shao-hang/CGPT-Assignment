@@ -42,7 +42,7 @@ public class PostProcessing : MonoBehaviour
     public void LerpWeight()
     {
         volume.weight = Mathf.Clamp01(Mathf.Lerp(volume.weight, targetWeight, lerpValue));
-        if (volume.weight <= 0.0001f)
-            volume.weight = 0f;
+        if (volume.weight <= defaultWeight + 0.0001f)
+            volume.weight = defaultWeight;
     }
 }

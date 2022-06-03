@@ -14,6 +14,7 @@ public class SwordBehavior : MonoBehaviour
     public float baseChargeSpeed;
     public float extraChargeSpeed;
     public float chargeDuration;
+    public float blockingStaminaConsumption;
     public float maxPostProcessWeight;
 
     [Header("Assignables")]
@@ -206,20 +207,27 @@ public class SwordBehavior : MonoBehaviour
 
     public void StartBlocking()
     {
-        anim.SetBool("Blocking", true);
-        anim.ResetTrigger("FullyCharged");
-        StopCharging();
-        isBlocking = true;
+        if (playerMovement.currentStamina >= blockingStaminaConsumption)
+        {
+            isBlocking = true;
+            anim.SetBool("Blocking", true);
+            anim.ResetTrigger("FullyCharged");
+            StopCharging();
+        }
+        else
+            StopBlocking();
     }
 
     public void StopBlocking()
     {
         anim.SetBool("Blocking", false);
+        anim.ResetTrigger("Blocked");
         isBlocking = false;
     }
 
     public void BlockSuccess()
     {
+        playerMovement.currentStamina -= blockingStaminaConsumption;
         anim.SetTrigger("Blocked");
     }
 

@@ -6,7 +6,6 @@ public class PlayerHealth : MonoBehaviour
 {
 
     public float maxHealth;
-    public float blockingStaminaConsumption;
 
     public SwordBehavior sword;
     public Transform hitVfxLocation;
@@ -40,10 +39,9 @@ public class PlayerHealth : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
-        if (sword.isBlocking)
+        if (sword.isBlocking && (sword.anim.GetCurrentAnimatorStateInfo(0).IsName("Blocking") || sword.anim.GetCurrentAnimatorStateInfo(0).IsName("Blocked")))
         {
             Debug.Log("BLOCKED");
-            playerMovement.ConsumeStamina(blockingStaminaConsumption);
             sword.BlockSuccess();
             StartCoroutine(camHandler.CameraShake(0.15f, 1f));
             Vector3 vfxPos = hitVfxLocation.position;

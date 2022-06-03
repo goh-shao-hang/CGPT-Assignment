@@ -46,7 +46,6 @@ public class BossBehavior : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.LookAt(player);
         if ((thisEnemy.currentHealth <= thisEnemy.maxHealth * 2 / 3) && (thisEnemy.currentHealth > thisEnemy.maxHealth * 1 / 3) && currentPhase == phases.phase1)
         {
             currentPhase = phases.phase2;

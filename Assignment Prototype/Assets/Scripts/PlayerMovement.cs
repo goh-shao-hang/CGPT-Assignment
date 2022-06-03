@@ -14,6 +14,7 @@ public class PlayerMovement : MonoBehaviour
     public float sprintStaminaConsumption;
     public float staminaRegenRate;
     public float staminaRegenDelay;
+    public float lowStaminaWarningThreshold;
     //Jump
     public float jumpForce;
     public float jumpCD;
@@ -35,8 +36,10 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody rb;
     private Collider dashTrigger;
     public PostProcessing speedVolume;
+    public PostProcessing lowStaminaVolume;
 
-    [SerializeField] private float currentStamina;
+    public float currentStamina;
+    private bool maxReached = false;
     [SerializeField] private float staminaRegenTimer;
     private float xInput, yInput;
     private Vector3 moveDirection;
@@ -151,6 +154,31 @@ public class PlayerMovement : MonoBehaviour
             }
         }
         currentStamina = Mathf.Clamp(currentStamina, 0, maxStamina);
+
+        if (currentStamina <= lowStaminaWarningThreshold)
+        {
+            lowStaminaVolume.defaultWeight = 0.5f;
+            if (lowStaminaVolume.currentWeight < 0.95 && !maxReached)
+            {
+                lowStaminaVolume.AddWeight(1f);
+            }
+            else if (lowStaminaVolume.currentWeight >= 0.95 && !maxReached)
+            {
+                maxReached = true;
+                lowStaminaVolume.RestoreWeight();
+            }
+            else if (lowStaminaVolume.currentWeight < 0.55 && maxReached)
+            {
+                maxReached = false;
+            }
+        }
+        else
+        {
+            maxReached = false;
+            lowStaminaVolume.defaultWeight = 0f;
+            if (lowStaminaVolume.currentWeight > 0f)
+                lowStaminaVolume.RestoreWeight();
+        }
     }
 
     public void ConsumeStamina(float staminaConsumed)
