@@ -26,10 +26,11 @@ public class PlayerHealth : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(2))
+        //Uncomment to test taking damage
+        /*if (Input.GetMouseButtonDown(2))
         {
             TakeDamage(20);
-        }
+        }*/
     }
 
     public void PlayerHeal()
@@ -39,7 +40,7 @@ public class PlayerHealth : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
-        if (sword.isBlocking && (sword.anim.GetCurrentAnimatorStateInfo(0).IsName("Blocking") || sword.anim.GetCurrentAnimatorStateInfo(0).IsName("Blocked")))
+        if ((sword.anim.GetCurrentAnimatorStateInfo(0).IsName("Blocking") || sword.anim.GetCurrentAnimatorStateInfo(0).IsName("Blocked")))
         {
             Debug.Log("BLOCKED");
             sword.BlockSuccess();
