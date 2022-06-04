@@ -7,6 +7,7 @@ TagManager:
   - Enemy
   - Coin
   - CoinCollector
+  - EnemyAttack
   layers:
   - Default
   - TransparentFX

@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyBehavior : MonoBehaviour
 {
     public float maxHealth = 40f;
-    [SerializeField] public float currentHealth;
-    [SerializeField] private bool dead = false;
+    public float currentHealth;
+    public bool dead = false;
     public int minCoin;
     public int maxCoin;
     public GameObject coin;
@@ -60,6 +61,8 @@ public class EnemyBehavior : MonoBehaviour
     {
         dead = true;
         anim.enabled = false;
+        if (GetComponent<NavMeshAgent>() != null)
+            Destroy(GetComponent<NavMeshAgent>());
         SetCollidersState(true);
         SetRigidbodiesState(false);
         DropCoins();
