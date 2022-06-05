@@ -123,6 +123,7 @@ GameObject:
   - component: {fileID: 460144604168439950}
   - component: {fileID: 3588551420863498027}
   - component: {fileID: 1597071189192881121}
+  - component: {fileID: 3490267076467346824}
   m_Layer: 0
   m_Name: racktest
   m_TagString: Untagged
@@ -199,6 +200,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &3490267076467346824
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 948310880862704180}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.020000001, y: 0.052017942, z: 0.02}
+  m_Center: {x: 0, y: 9.3132246e-10, z: 1.6543612e-24}
 --- !u!1 &2230187275555701772
 GameObject:
   m_ObjectHideFlags: 0

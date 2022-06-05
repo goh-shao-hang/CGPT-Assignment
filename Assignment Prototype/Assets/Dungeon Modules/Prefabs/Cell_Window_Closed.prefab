@@ -14,7 +14,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &670423964664392864
 Transform:
@@ -83,13 +83,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -8100272474724353751, guid: 42333a16e85da4f49ae7f83fd8a05fae, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: -6416375339238113868, guid: 42333a16e85da4f49ae7f83fd8a05fae, type: 3}
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -3357037809688669164, guid: 42333a16e85da4f49ae7f83fd8a05fae, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 42333a16e85da4f49ae7f83fd8a05fae, type: 3}
       propertyPath: m_Name
       value: Cell_Closed_Window
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 42333a16e85da4f49ae7f83fd8a05fae, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 42333a16e85da4f49ae7f83fd8a05fae, type: 3}
