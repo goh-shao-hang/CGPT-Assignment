@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -59,7 +60,7 @@ public class PlayerHealth : MonoBehaviour
             StartCoroutine(camHandler.CameraShake(0.5f, 1f));
 
             if (currentHealth <= 0)
-                Debug.Log("GAME OVER");
+                SceneManager.LoadScene(2);
         }  
     }
 }
