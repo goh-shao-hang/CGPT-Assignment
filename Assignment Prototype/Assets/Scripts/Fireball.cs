@@ -31,5 +31,9 @@ public class Fireball : MonoBehaviour
             player.GetComponent<PlayerHealth>().TakeDamage(fireballDamage);
             Destroy(gameObject);
         }
+        else if (other.gameObject.tag == "Pillars")
+        {
+            Destroy(gameObject);
+        }
     }
 }
