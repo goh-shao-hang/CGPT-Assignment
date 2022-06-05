@@ -2973,6 +2973,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6468926017439758515, guid: f8744f6371c883d4c9ed4552b0748830, type: 3}
+      propertyPath: m_TagString
+      value: Pillars
+      objectReference: {fileID: 0}
     - target: {fileID: 8472075437402669075, guid: f8744f6371c883d4c9ed4552b0748830, type: 3}
       propertyPath: m_Name
       value: Boss_Pillar (2)
@@ -12913,7 +12917,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 107, y: -50}
+  m_AnchoredPosition: {x: 100, y: -25}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &462640630
@@ -18971,6 +18975,10 @@ PrefabInstance:
     - target: {fileID: 4424108051897799512, guid: f8744f6371c883d4c9ed4552b0748830, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6468926017439758515, guid: f8744f6371c883d4c9ed4552b0748830, type: 3}
+      propertyPath: m_TagString
+      value: Pillars
       objectReference: {fileID: 0}
     - target: {fileID: 8472075437402669075, guid: f8744f6371c883d4c9ed4552b0748830, type: 3}
       propertyPath: m_Name
@@ -27204,6 +27212,10 @@ PrefabInstance:
     - target: {fileID: 4424108051897799512, guid: f8744f6371c883d4c9ed4552b0748830, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6468926017439758515, guid: f8744f6371c883d4c9ed4552b0748830, type: 3}
+      propertyPath: m_TagString
+      value: Pillars
       objectReference: {fileID: 0}
     - target: {fileID: 8472075437402669075, guid: f8744f6371c883d4c9ed4552b0748830, type: 3}
       propertyPath: m_Name
@@ -38776,6 +38788,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6468926017439758515, guid: f8744f6371c883d4c9ed4552b0748830, type: 3}
+      propertyPath: m_TagString
+      value: Pillars
+      objectReference: {fileID: 0}
     - target: {fileID: 8472075437402669075, guid: f8744f6371c883d4c9ed4552b0748830, type: 3}
       propertyPath: m_Name
       value: Boss_Pillar (1)
@@ -38880,7 +38896,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 89, y: -88}
+  m_AnchoredPosition: {x: 82, y: -50}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1403500916
@@ -43697,7 +43713,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 89, y: -88}
+  m_AnchoredPosition: {x: 82, y: -50}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1578326042
@@ -48130,6 +48146,10 @@ PrefabInstance:
       value: Boss
       objectReference: {fileID: 0}
     - target: {fileID: 2988178388901476276, guid: 4ed6b0762dbeb634a97a1d9e104bcd00, type: 3}
+      propertyPath: throwForce
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2988178388901476276, guid: 4ed6b0762dbeb634a97a1d9e104bcd00, type: 3}
       propertyPath: fireballDamage
       value: 45
       objectReference: {fileID: 0}
@@ -51138,7 +51158,7 @@ GameObject:
   - component: {fileID: 1860410065}
   m_Layer: 0
   m_Name: PIllars
-  m_TagString: Untagged
+  m_TagString: Pillars
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -57622,7 +57642,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 107, y: -50}
+  m_AnchoredPosition: {x: 100, y: -25}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2129324124

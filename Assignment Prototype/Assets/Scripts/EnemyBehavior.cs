@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 
 public class EnemyBehavior : MonoBehaviour
 {
@@ -66,6 +67,15 @@ public class EnemyBehavior : MonoBehaviour
         SetCollidersState(true);
         SetRigidbodiesState(false);
         DropCoins();
+
+        if (gameObject.name == "Boss")
+            Invoke(nameof(BossDeath), 3f);
+    }
+
+    public void BossDeath()
+    {
+        Debug.Log("loaded");
+        SceneManager.LoadScene(3);
     }
 
     public void DropCoins()
