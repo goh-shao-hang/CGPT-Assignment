@@ -3404,6 +3404,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 17ee05d57b0f284478a0cedf0deff434, type: 3}
+--- !u!1 &1247242891 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8076916174016589395, guid: de9097c72a17a7641aab8d819d42eb2f, type: 3}
+  m_PrefabInstance: {fileID: 8076916175991683491}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &1247242894
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1247242891}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.14749908, y: 0.060885467, z: 0.905246}
+  m_Center: {x: 0.02374972, y: 0.000000010475802, z: 0.5226256}
 --- !u!1 &1263226212
 GameObject:
   m_ObjectHideFlags: 0
@@ -5523,6 +5541,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Skeleton
       objectReference: {fileID: 0}
+    - target: {fileID: 1837569443567489454, guid: e4ecb7edbee2d424498abd85571005fb, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e4ecb7edbee2d424498abd85571005fb, type: 3}
 --- !u!1001 &2589681373733489078
@@ -7002,6 +7024,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8076916175626832506, guid: de9097c72a17a7641aab8d819d42eb2f, type: 3}
+      propertyPath: swordCollider
+      value: 
+      objectReference: {fileID: 1247242894}
     - target: {fileID: 8076916175626832507, guid: de9097c72a17a7641aab8d819d42eb2f, type: 3}
       propertyPath: m_Name
       value: SmallSkeleton

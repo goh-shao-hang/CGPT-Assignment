@@ -16,6 +16,7 @@ public class EnemySword : MonoBehaviour
         player = GameObject.Find("Player").GetComponent<PlayerHealth>();
         thisEnemy = GetComponentInParent<EnemyBehavior>();
         thisAI = GetComponentInParent<EnemyAI>();
+        swordDamage = thisAI.attackDamage;
     }
 
     private void OnTriggerEnter(Collider other)
