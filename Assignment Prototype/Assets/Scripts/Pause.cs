@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Pause : MonoBehaviour
 {
@@ -8,7 +9,7 @@ public class Pause : MonoBehaviour
     public bool isPaused;
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         pauseMenu.SetActive(false);
 
@@ -26,6 +27,7 @@ public class Pause : MonoBehaviour
             else
             {
                 PauseGame();
+                UnlockMouse();
             }
         }
     }
@@ -41,5 +43,22 @@ public class Pause : MonoBehaviour
         pauseMenu.SetActive(false);
         Time.timeScale = 1f;
         isPaused = false;
+        lockmouse();
+    }
+
+    public void GoToMainMenu()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(0);
+    }
+    private void UnlockMouse()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
+    private void lockmouse()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 }

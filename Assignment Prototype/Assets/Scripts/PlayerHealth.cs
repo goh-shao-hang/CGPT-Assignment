@@ -14,7 +14,7 @@ public class PlayerHealth : MonoBehaviour
     public CameraHandler camHandler;
     public PostProcessing healthVolume;
 
-    [SerializeField] private float currentHealth;
+    [SerializeField] public float currentHealth;
 
 
     // Start is called before the first frame update
