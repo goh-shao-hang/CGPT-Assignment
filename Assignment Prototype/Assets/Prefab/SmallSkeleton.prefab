@@ -1312,6 +1312,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8076916174016361011}
   - component: {fileID: 8076916175375646278}
+  - component: {fileID: 4213779967317554348}
   m_Layer: 10
   m_Name: Bip001 Prop1
   m_TagString: Untagged
@@ -1349,6 +1350,19 @@ MonoBehaviour:
   player: {fileID: 0}
   thisEnemy: {fileID: 0}
   thisAI: {fileID: 0}
+--- !u!65 &4213779967317554348
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8076916174016589395}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.13781334, y: 0.1, z: 0.8560295}
+  m_Center: {x: 0.01890671, y: 0.000000013252862, z: 0.55801755}
 --- !u!1 &8076916174016589397
 GameObject:
   m_ObjectHideFlags: 0
@@ -2393,7 +2407,7 @@ MonoBehaviour:
   attackRange: 1.5
   attackCD: 0.5
   thisEnemy: {fileID: 0}
-  swordCollider: {fileID: 0}
+  swordCollider: {fileID: 4213779967317554348}
 --- !u!1 &8076916175831883722
 GameObject:
   m_ObjectHideFlags: 0
