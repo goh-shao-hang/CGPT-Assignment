@@ -69,7 +69,7 @@ public class EnemyBehavior : MonoBehaviour
         DropCoins();
 
         if (gameObject.name == "Boss")
-            Invoke(nameof(BossDeath), 3f);
+            Invoke(nameof(BossDeath), 5f);
     }
 
     public void BossDeath()
